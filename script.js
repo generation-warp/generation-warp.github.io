@@ -684,6 +684,9 @@ ClashMASQUE.addEventListener('click', async () => {
     try {
 		const configDataMSQ = await fetchFullConfigMSQ()
 		
+		const mtuInput = document.querySelector('#infoModal2 #mtu');
+		const mtuVal = mtuInput?.value.trim() || mtuInput?.placeholder || '1420';
+		
 		let proxy = 'proxies:'
 		let proxyg = `proxy-groups:
 - name: WARP
