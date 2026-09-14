@@ -485,7 +485,7 @@ if (isAwg31) {
   public-key: ${configDataMSQ.peer_pub}
   ip: ${configDataMSQ.client_ipv4}
   ipv6: ${configDataMSQ.client_ipv6}
-  mtu: ${mtuVal}
+  mtu: 1280
   udp: true
   remote-dns-resolve: true
   dns: [1.1.1.1, 1.0.0.1, 2606:4700:4700::1111, 2606:4700:4700::1001]`;
@@ -589,8 +589,8 @@ rules:
 rules:
 - MATCH,WARP + llimonix`;
 		}
-		
-        const wireGuardText = `warp-common: &warp-common
+
+		const wireGuardText = `warp-common: &warp-common
   type: wireguard
   ip: ${configData.client_ipv4}
   ipv6: ${configData.client_ipv6}
@@ -601,8 +601,8 @@ rules:
   mtu: ${mtuVal}
   remote-dns-resolve: true
   dns: [1.1.1.1, 1.0.0.1, 2606:4700:4700::1111, 2606:4700:4700::1001]
-${awg}  
-${msq}  
+${awg}
+${msq}
 proxies:
 - name: "Стандартный 1"
   <<: *warp-common
@@ -656,17 +656,13 @@ showPopup('Ошибка. Подождите несколько минут или
 
 // ClashMASQUE
 ClashMASQUE.addEventListener('click', async () => {
-    const button = document.getElementById('generateButton6');
-    const status = document.getElementById('status');
-    const randomNumber = Math.floor(Math.random() * (99 - 10 + 1)) + 10;
-    button.disabled = true;
-    button.classList.add("button--loading");
-    try {
+	const button = document.getElementById('generateButton6');
+	const status = document.getElementById('status');
+	const randomNumber = Math.floor(Math.random() * (99 - 10 + 1)) + 10;
+	button.disabled = true;
+	button.classList.add("button--loading");
+	try {
 		const configDataMSQ = await fetchFullConfigMSQ()
-		
-		const mtuInput = document.querySelector('#infoModal2 #mtu');
-		const mtuVal = mtuInput?.value.trim() || mtuInput?.placeholder || '1420';
-		
 		let proxy = 'proxies:'
 		let proxyg = `proxy-groups:
 - name: WARP
@@ -679,45 +675,46 @@ ClashMASQUE.addEventListener('click', async () => {
   interval: 300
 rules:
 - MATCH,WARP`
-		
-	    // --- AWG 3.0 ---
-		const awg3cToggle = document.getElementById('awg3c');
-		let awg3cConfig = '';
-		if (awg3cToggle && awg3cToggle.checked) {
-			const getValue = (id) => {
-				const el = document.getElementById(id);
-				if (!el) return '';
-				const val = el.value.trim() || el.placeholder || '';
-				if (!val || Number(val) === 0) return '';
-				return val;
-			};
 
-    const cpa = getValue('cpaInput');
-    const rkat = getValue('rkatInput');
-    const rt = getValue('rtInput');
-    const rat = getValue('ratInput');
-    const kt = getValue('ktInput');
-    const mha = getValue('mhaInput');
+		const mtuInput = document.querySelector('#infoModal2 #mtu');
+		const mtuVal = mtuInput?.value.trim() || mtuInput?.placeholder || '1420';
 
-                if (cpa) awg3cConfig += `\n   content-padding-addition: ${cpa}`;
-                if (rkat) awg3cConfig += `\n   rekey-after-time: ${rkat}`;
-                if (rt) awg3cConfig += `\n   rekey-timeout: ${rt}`;
-                if (rat) awg3cConfig += `\n   reject-after-time: ${rat}`;
-                if (kt) awg3cConfig += `\n   keepalive-timeout: ${kt}`;
-                if (mha) awg3cConfig += `\n   max-handshake-attempts: ${mha}`;
-            }
-		
-		// --- AWG 3.1 ---
+// --- AWG 3.0 ---
+const awg3cToggle = document.getElementById('awg3c');
+let awg3cConfig = '';
+if (awg3cToggle && awg3cToggle.checked) {
+	const getValue = (id) => {
+		const el = document.getElementById(id);
+		if (!el) return '';
+		const val = el.value.trim() || el.placeholder || '';
+		if (!val || Number(val) === 0) return '';
+		return val;
+	};
+	const cpa = getValue('cpaInput');
+	const rkat = getValue('rkatInput');
+	const rt = getValue('rtInput');
+	const rat = getValue('ratInput');
+	const kt = getValue('ktInput');
+	const mha = getValue('mhaInput');
+	if (cpa) awg3cConfig += `\n   content-padding-addition: ${cpa}`;
+	if (rkat) awg3cConfig += `\n   rekey-after-time: ${rkat}`;
+	if (rt) awg3cConfig += `\n   rekey-timeout: ${rt}`;
+	if (rat) awg3cConfig += `\n   reject-after-time: ${rat}`;
+	if (kt) awg3cConfig += `\n   keepalive-timeout: ${kt}`;
+	if (mha) awg3cConfig += `\n   max-handshake-attempts: ${mha}`;
+}
+
+// --- AWG 3.1 ---
 const isAwg31 = document.getElementById('awg3_1c')?.checked;
 const isRandomTrailers = document.getElementById('awg3_1_1c')?.checked;
 const isDisableCookies = document.getElementById('awg3_1_2c')?.checked;
 
 if (isAwg31) {
-    if (isRandomTrailers) awg3cConfig += `\n   random-trailers: true`;
-    if (isDisableCookies) awg3cConfig += `\n   disable-cookies: true`;
+	if (isRandomTrailers) awg3cConfig += `\n   random-trailers: true`;
+	if (isDisableCookies) awg3cConfig += `\n   disable-cookies: true`;
 }
-		
-		const serversToggle = document.getElementById('servers');
+
+	const serversToggle = document.getElementById('servers');
 		if (serversToggle.checked) {
 			const configData = await fetchFullConfig()
 			proxy = `warp-common: &warp-common
@@ -809,7 +806,7 @@ rules:
   public-key: ${configDataMSQ.peer_pub}
   ip: ${configDataMSQ.client_ipv4}
   ipv6: ${configDataMSQ.client_ipv6}
-  mtu: ${mtuVal}
+  mtu: 1280
   udp: true
   remote-dns-resolve: true
   dns: [1.1.1.1, 1.0.0.1, 2606:4700:4700::1111, 2606:4700:4700::1001]  
@@ -876,17 +873,16 @@ WireSock.addEventListener('click', async () => {
 			address = `${configData.client_ipv4}, ${configData.client_ipv6}`;
 		} else {dns = dns.split(',').filter(ip => !ip.includes(':')).join(',');}
 
-        const allowedIPs = getSelectedSites();
-        const randomEndpoint = generateRandomEndpoint();
-        const customDomainInput = document.getElementById('i1');
-const customDomain = customDomainInput ? customDomainInput.value.trim() : '';
-const domains = ['apteka.ru', 'psbank.ru', 'lenta.ru', 'www.pochta.ru', 'rzd.ru', 'rutube.ru', 'gosuslugi.ru'];
-
-const randomDomain = customDomain || domains[Math.floor(Math.random() * domains.length)];
-        
+		const allowedIPs = getSelectedSites();
+		const randomEndpoint = generateRandomEndpoint();
+		
+		const customDomainInput = document.getElementById('i1');
+		const customDomain = customDomainInput ? customDomainInput.value.trim() : '';
+		const domains = ['apteka.ru', 'psbank.ru', 'lenta.ru', 'www.pochta.ru', 'rzd.ru', 'rutube.ru', 'gosuslugi.ru'];
+		const randomDomain = customDomain || domains[Math.floor(Math.random() * domains.length)];
 		const mtuInput = document.getElementById('mtu');
 		const mtuVal = mtuInput?.value.trim() || mtuInput?.placeholder || '1420';
-		
+
         const wireGuardText = `[Interface]
 PrivateKey = ${configData.privKey}
 Address = ${address}
@@ -951,20 +947,20 @@ document.getElementById('promoButton').onclick = function() {
 }
 
 function getSelectedDNS() {
-    if (document.getElementById('cf').checked) {
-        return "1.1.1.1, 1.0.0.1, 2606:4700:4700::1111, 2606:4700:4700::1001";
-    } else if (document.getElementById('malw').checked) {
-        return "95.216.204.218, 80.253.249.40, 2a01:4f9:c014:6dac::1, 2a12:bec4:1460:5b7::2";
-    } else if (document.getElementById('xbox').checked) {
-        return "111.88.96.50, 111.88.96.51, 2a00:ab00:1233:26::50, 2a00:ab00:1233:26::51";
+	if (document.getElementById('cf').checked) {
+		return "1.1.1.1, 1.0.0.1, 2606:4700:4700::1111, 2606:4700:4700::1001";
+	} else if (document.getElementById('malw').checked) {
+		return "95.216.204.218, 80.253.249.40, 2a01:4f9:c014:6dac::1, 2a12:bec4:1460:5b7::2";
+	} else if (document.getElementById('xbox').checked) {
+		return "111.88.96.50, 111.88.96.51, 2a00:ab00:1233:26::50, 2a00:ab00:1233:26::51";
 	} else if (document.getElementById('geohide').checked) {
-        return "45.155.204.190, 37.230.192.51, 193.233.112.67, 193.233.112.68";
+		return "45.155.204.190, 37.230.192.51, 193.233.112.67, 193.233.112.68";
 	} else if (document.getElementById('comss').checked) {
-        return "83.220.169.155, 212.109.195.93, 195.133.25.16, 2a01:230:4:915::2, 2a01:230:4:306::2";
+		return "83.220.169.155, 212.109.195.93, 195.133.25.16, 2a01:230:4:915::2, 2a01:230:4:306::2";
 	} else if (document.getElementById('google').checked) {
-        return "8.8.8.8, 8.8.4.4, 2001:4860:4860::8888, 2001:4860:4860::8844";	
-    }
-}
+		return "8.8.8.8, 8.8.4.4, 2001:4860:4860::8888, 2001:4860:4860::8844";	
+	}}
+
 function getSelectedSites() {
 	
 	const toggleCheckbox = document.getElementById('rules');
@@ -1648,7 +1644,6 @@ document.addEventListener('DOMContentLoaded', () => {
             if (awg) awg.style.marginTop = '15px';
         } else {
             if (ClashMASQUE) ClashMASQUE.style.display = '';
-            // Подставляем динамическую версию вместо жестко прописанного 'AWG 2.0'
             if (Clash) Clash.textContent = `AWG ${getClashVersion()}`;
             if (containerClash) containerClash.style.height = '160px';
             if (wsc) wsc.style.marginTop = '-96px';
