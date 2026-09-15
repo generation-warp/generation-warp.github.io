@@ -691,12 +691,12 @@ if (awg3cToggle && awg3cToggle.checked) {
 		if (!val || Number(val) === 0) return '';
 		return val;
 	};
-    const cpa = getValue('cpaInput');
-    const rkat = getValue('rkatInput');
-    const rt = getValue('rtInput');
-    const rat = getValue('ratInput');
-    const kt = getValue('ktInput');
-    const mha = getValue('mhaInput');
+	const cpa = getValue('cpaInput');
+	const rkat = getValue('rkatInput');
+	const rt = getValue('rtInput');
+	const rat = getValue('ratInput');
+	const kt = getValue('ktInput');
+	const mha = getValue('mhaInput');
 	if (cpa) awg3cConfig += `\n   content-padding-addition: ${cpa}`;
 	if (rkat) awg3cConfig += `\n   rekey-after-time: ${rkat}`;
 	if (rt) awg3cConfig += `\n   rekey-timeout: ${rt}`;
@@ -704,7 +704,7 @@ if (awg3cToggle && awg3cToggle.checked) {
 	if (kt) awg3cConfig += `\n   keepalive-timeout: ${kt}`;
 	if (mha) awg3cConfig += `\n   max-handshake-attempts: ${mha}`;
 }
-		
+
 // --- AWG 3.1 ---
 const isAwg31 = document.getElementById('awg3_1c')?.checked;
 const isRandomTrailers = document.getElementById('awg3_1_1c')?.checked;
@@ -1230,7 +1230,7 @@ function getSelectedDNS() {
 		return "83.220.169.155, 212.109.195.93, 195.133.25.16, 2a01:230:4:915::2, 2a01:230:4:306::2";
 	} else if (document.getElementById('google').checked) {
 		return "8.8.8.8, 8.8.4.4, 2001:4860:4860::8888, 2001:4860:4860::8844";	
-    }}
+	}}
 
 function getSelectedSites() {
 	
