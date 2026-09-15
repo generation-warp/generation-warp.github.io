@@ -993,6 +993,7 @@ WireSock.addEventListener('click', async () => {
     'lektorium.tv',
     'letidor.ru',
     'lib.ru',
+    'linkgroup.ru',
     'litres.ru',
     'livejournal.com',
     'livelib.ru',
