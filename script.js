@@ -878,7 +878,7 @@ WireSock.addEventListener('click', async () => {
 		const randomEndpoint = generateRandomEndpoint();
 		
 		const customDomainInput = document.getElementById('i1');
-		const customDomain = customDomainInput ? customDomainInput.value.trim() : '';	
+		const customDomain = customDomainInput ? customDomainInput.value.trim() : '';
 		const domains = [
     '175bru.ru',
     '1tv.ru',
