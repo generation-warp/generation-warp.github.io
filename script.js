@@ -6,6 +6,16 @@ const WireSock = document.getElementById('generateButton5');
 const ClashMASQUE = document.getElementById('generateButton6');
 const container = document.querySelector('.container');
 
+(function () {
+    var ua = navigator.userAgent || '';
+    var isTelegramIOS = /Telegram/i.test(ua) && /(iPhone|iPad|iPod)/i.test(ua);
+    var isTelegramAndroid = /Telegram/i.test(ua) && /Android/i.test(ua);
+    var isTelegramDesktop = /Telegram/i.test(ua);
+    var isTelegramWebApp = !!(window.Telegram && window.Telegram.WebApp);
+    if (isTelegramIOS || isTelegramAndroid || isTelegramDesktop || isTelegramWebApp) {
+      document.getElementById('info').style.display = 'block';
+}})();
+
 function generateRandomEndpoint() {
     const ports = [500, 854, 859, 864, 878, 880, 890, 891, 894, 903, 908, 928, 934, 939, 942, 943, 945, 946, 955, 968, 987, 988, 1002, 1010, 1014, 1018, 1070, 1074, 1180, 1387, 1701, 1843, 2371, 2408, 2506, 3138, 3476, 3581, 3854, 4177, 4198, 4233, 4500, 5279, 5956, 7103, 7152, 7156, 7281, 7559, 8319, 8742, 8854, 8886];
     
@@ -334,7 +344,7 @@ async function generateWireGuardConfig(version, buttonId) {
             }
             
 			const mtuInput = document.getElementById('mtu');
-			const mtuVal = mtuInput?.value.trim() || mtuInput?.placeholder || '1420';
+			const mtuVal = mtuInput?.value.trim() || mtuInput?.placeholder || '1280';
 			
     // --- AWG 3.0 ---
 		const awg3Toggle = document.getElementById('awg3');
@@ -438,7 +448,7 @@ Clash.addEventListener('click', async () => {
 		let proxy = ''
 		
 		const mtuInput = document.querySelector('#infoModal2 #mtu');
-		const mtuVal = mtuInput?.value.trim() || mtuInput?.placeholder || '1420';
+		const mtuVal = mtuInput?.value.trim() || mtuInput?.placeholder || '1280';
 		
     // --- AWG 3.0 ---
 		const awg3cToggle = document.getElementById('awg3c');
@@ -670,14 +680,14 @@ ClashMASQUE.addEventListener('click', async () => {
   icon: https://www.vectorlogo.zone/logos/cloudflare/cloudflare-icon.svg
   proxies:
     - "MASQUE"
-    - "MASQUE h2"		
+    - "MASQUE h2"
   url: 'http://speed.cloudflare.com/'
   interval: 300
 rules:
 - MATCH,WARP`
 
 		const mtuInput = document.querySelector('#infoModal2 #mtu');
-		const mtuVal = mtuInput?.value.trim() || mtuInput?.placeholder || '1420';
+		const mtuVal = mtuInput?.value.trim() || mtuInput?.placeholder || '1280';
 
 // --- AWG 3.0 ---
 const awg3cToggle = document.getElementById('awg3c');
@@ -881,7 +891,7 @@ WireSock.addEventListener('click', async () => {
 		const domains = ['apteka.ru', 'psbank.ru', 'lenta.ru', 'www.pochta.ru', 'rzd.ru', 'rutube.ru', 'gosuslugi.ru'];
 		const randomDomain = customDomain || domains[Math.floor(Math.random() * domains.length)];
 		const mtuInput = document.getElementById('mtu');
-		const mtuVal = mtuInput?.value.trim() || mtuInput?.placeholder || '1420';
+		const mtuVal = mtuInput?.value.trim() || mtuInput?.placeholder || '1280';
 
         const wireGuardText = `[Interface]
 PrivateKey = ${configData.privKey}
