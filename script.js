@@ -992,6 +992,7 @@ WireSock.addEventListener('click', async () => {
     'kreml.ru',
     'kuban24.tv',
     'lektorium.tv',
+    'lentainform.com',
     'letidor.ru',
     'lib.ru',
     'linkgroup.ru',
